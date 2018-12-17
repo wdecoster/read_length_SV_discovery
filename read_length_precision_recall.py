@@ -25,7 +25,6 @@ def main():
     plt.xlabel("Read length (log-transformed)")
     plt.ylim(0, 100)
     plt.tight_layout()
-    plt.show()
     plt.savefig("length-vs-pr.png")
 
 
