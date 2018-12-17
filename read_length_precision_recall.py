@@ -10,12 +10,13 @@ def main():
     df = pd.read_csv(filepath_or_buffer=args.pr,
                      sep="\t",
                      header=None,
-                     names=['caller', 'length', 'precision', 'recall', 'opacity'])
+                     names=['caller', 'length', 'precision', 'recall', 'opacity']) \
+        .groupby("length").mean()
 
     plt.figure()
     ax = plt.gca()
     for feat in ["precision", "recall"]:
-        ax.scatter(x=df['length'],
+        ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
                    s=3)
