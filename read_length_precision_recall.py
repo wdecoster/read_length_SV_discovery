@@ -1,8 +1,9 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 from argparse import ArgumentParser
+from itertools import cycle
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 
 
 def main():
@@ -12,13 +13,14 @@ def main():
                      header=None,
                      names=['caller', 'length', 'precision', 'recall', 'opacity']) \
         .groupby("length").mean()
-
+    marker = cycle(('+', 'x', 'v', '.', 'o', '*'))
     plt.figure()
     ax = plt.gca()
     for feat in ["precision", "recall"]:
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
+                   marker=next(marker),
                    s=3)
     ax.set_xscale('log')
     plt.legend(loc="lower right")
