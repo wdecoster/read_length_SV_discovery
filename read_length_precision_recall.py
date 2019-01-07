@@ -1,9 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from argparse import ArgumentParser
-from itertools import cycle
-import matplotlib
-matplotlib.use('Agg')
 
 
 def main():
@@ -13,15 +10,16 @@ def main():
                      header=None,
                      names=['caller', 'length', 'precision', 'recall', 'opacity']) \
         .groupby("length").mean()
-    marker = cycle(('+', 'x', 'v', '.', 'o', '*'))
     plt.figure()
     ax = plt.gca()
-    for feat in ["precision", "recall"]:
+    for feat, marker in zip(["precision", "recall"], ['.', 'x']):
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
-                   marker=next(marker),
-                   s=3)
+                   marker=marker,
+                   s=16)
+    plt.axvline(x=20000, linestyle='--', linewidth=1)
+    plt.axvline(x=150000, linestyle='--', linewidth=1)
     ax.set_xscale('log')
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
