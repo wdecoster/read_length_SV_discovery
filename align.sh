@@ -1,1 +1,1 @@
-ls *.fastq.gz | sed s/.fastq.gz// | parallel --bar -j 5 'minimap2 --MD -R "@RG\tID:{}\tSM:{}" -a -t 8 /home/wdecoster/GRCh38_recommended/minimap2.mmi {}.fastq.gz | samtools sort -@4 -o {}.bam && mv {}.fastq.gz fastq_done/ && samtools index -@4 {}.bam'
+ls *.fastq.gz | sed s/.fastq.gz// | parallel --bar -j 5 'minimap2 --MD -R "@RG\tID:{}\tSM:{}" -ax map-pb -t 8 /home/wdecoster/GRCh38_recommended/minimap2.mmi {}.fastq.gz | samtools sort -@4 -o {}.bam && mv {}.fastq.gz fastq_done/ && samtools index -@4 {}.bam'
