@@ -8,11 +8,11 @@ def main():
     df = pd.read_csv(filepath_or_buffer=args.pr,
                      sep="\t",
                      header=None,
-                     names=['caller', 'length', 'precision', 'recall', 'opacity']) \
+                     names=['caller', 'length', 'precision', 'recall', 'F-measure', 'opacity']) \
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
-    for feat, marker in zip(["precision", "recall"], ['.', 'x']):
+    for feat, marker in zip(["precision", "recall", "F-measure"], ['.', 'x', 'D']):
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
@@ -25,7 +25,7 @@ def main():
     plt.xlabel("Read length (log-transformed)")
     plt.ylim(0, 100)
     plt.tight_layout()
-    plt.savefig("length-vs-pr.png")
+    plt.savefig("length-vs-prf.png")
 
 
 def get_args():
