@@ -9,12 +9,15 @@ def main():
         filepath_or_buffer=args.pr,
         sep="\t",
         header=None,
-        names=['caller', 'length', 'precision', 'recall', 'precision_duphold', 'recall_duphold']) \
+        names=['caller', 'length', 'precision', 'recall', 'F-measure',
+               'precision_duphold', 'recall_duphold', 'F-measure_duphold']) \
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
-    for feat, marker in zip(['precision', 'recall', 'precision_duphold'],
-                            ['D', 'x', '.']):
+    features = ['precision', 'recall', 'precision_duphold']
+    features = ['F-measure', 'F-measure_duphold']
+    for feat, marker in zip(['precision', 'recall', 'precision_duphold', 'F-measure'],
+                            ['+', 'x', '.', 'D', 'o', 'd']):
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
@@ -27,7 +30,7 @@ def main():
     plt.xlabel("Read length (log-transformed)")
     plt.ylim(0, 100)
     plt.tight_layout()
-    plt.savefig("length-vs-pr-with-duphold.png")
+    plt.savefig("length-vs-prf-with-duphold.png")
 
 
 def get_args():
