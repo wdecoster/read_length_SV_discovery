@@ -9,7 +9,8 @@ def main():
         filepath_or_buffer=args.pr,
         sep="\t",
         header=None,
-        names=['caller', 'length', 'precision', 'recall', 'precision_duphold', 'recall_duphold']) \
+        names=['caller', 'length', 'precision', 'recall', 'F-measure',
+               'precision_duphold', 'recall_duphold', 'F-measure_duphold']) \
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
