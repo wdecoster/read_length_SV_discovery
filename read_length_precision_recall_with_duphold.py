@@ -14,10 +14,8 @@ def main():
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
-    features = ['precision', 'recall', 'precision_duphold']
-    features = ['F-measure', 'F-measure_duphold']
-    for feat, marker in zip(['precision', 'recall', 'precision_duphold', 'F-measure'],
-                            ['+', 'x', '.', 'D', 'o', 'd']):
+    for feat, marker in zip(['precision', 'recall', 'F-measure', 'precision_duphold'],
+                            ['+', 'x', 'D', '.']):
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
