@@ -23,7 +23,7 @@ def main():
     ax.set_xscale('log')
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
-    plt.ylim(0, 100)
+    plt.ylim(0, 1)
     plt.tight_layout()
     plt.savefig("length-vs-prf.png")
 
