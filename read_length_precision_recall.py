@@ -12,12 +12,14 @@ def main():
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
-    for feat, marker in zip(["precision", "recall", "F-measure"], ['.', 'x', 'D']):
+    for feat, marker, size in zip(["precision", "recall", "F-measure"],
+                                  ['.', 'x', 'D'],
+                                  [16, 16, 12]):
         ax.scatter(x=df.index,
                    y=df[feat],
                    label=feat,
                    marker=marker,
-                   s=16)
+                   s=size)
     ax.set_xscale('log')
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
