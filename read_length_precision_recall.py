@@ -18,8 +18,6 @@ def main():
                    label=feat,
                    marker=marker,
                    s=16)
-    plt.axvline(x=20000, linestyle='--', linewidth=1)
-    plt.axvline(x=150000, linestyle='--', linewidth=1)
     ax.set_xscale('log')
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
