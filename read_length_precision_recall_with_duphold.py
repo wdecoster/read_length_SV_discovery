@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from argparse import ArgumentParser
+import itertools
 
 
 def main():
@@ -10,11 +11,11 @@ def main():
         sep="\t",
         header=None,
         names=['caller', 'length', 'precision', 'recall', 'F-measure',
-               'precision_duphold', 'recall_duphold', 'F-measure_duphold']) \
+               'precision duphold', 'recall_duphold', 'F-measure_duphold']) \
         .groupby("length").mean()
     plt.figure()
     ax = plt.gca()
-    for feat, marker, size in zip(['precision', 'recall', 'F-measure', 'precision_duphold'],
+    for feat, marker, size in zip(['precision', 'recall', 'F-measure', 'precision duphold'],
                                   ['+', 'x', 'D', '.'],
                                   [18, 16, 12, 16]):
         ax.scatter(x=df.index,
@@ -25,7 +26,14 @@ def main():
     ax.set_xscale('log')
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
+    plt.ylabel("Accuracy metric")
+    plt.title('Structural variant detection with increasing read length')
     plt.ylim(0, 1)
+    xlines = [100, 1000, 10000, 100000]
+    for xcoord in xlines:
+        plt.axvline(xcoord, alpha=0.7, color='grey', linestyle='--', linewidth=0.5)
+    for xcoord in itertools.chain.from_iterable([range(i, i * 10, i) for i in xlines]):
+        plt.axvline(xcoord, alpha=0.4, color='grey', linestyle='--', linewidth=0.4)
     plt.tight_layout()
     plt.savefig("length-vs-prf-with-duphold.png")
 
