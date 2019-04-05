@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from argparse import ArgumentParser
+import itertools
 
 
 def main():
@@ -24,6 +25,11 @@ def main():
     plt.legend(loc="lower right")
     plt.xlabel("Read length (log-transformed)")
     plt.ylim(0, 1)
+    xlines = [100, 1000, 10000, 100000]
+    for xcoord in xlines:
+        plt.axvline(xcoord, alpha=0.7, color='grey', linestyle='--', linewidth=0.5)
+    for xcoord in itertools.chain.from_iterable([range(i, i * 10, i) for i in xlines]):
+        plt.axvline(xcoord, alpha=0.4, color='grey', linestyle='--', linewidth=0.4)
     plt.tight_layout()
     plt.savefig("length-vs-prf.png")
 
